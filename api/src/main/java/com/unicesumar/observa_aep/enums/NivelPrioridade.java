@@ -1,15 +1,16 @@
 package com.unicesumar.observa_aep.enums;
 
-public enum TipoUsuario {
+public enum NivelPrioridade {
 
-    CIDADAO("Cidadão"),
-    ATENDENTE("Servidor Público"),
-    GESTOR("Gestor"),
-    ADMIN("Administrador");
+    BAIXA("Baixa"),
+    MODERADA("Moderada"),
+    MEDIA("Média"),
+    ALTA("Alta"),
+    URGENTE("Urgente");
 
     private final String descricao;
 
-    TipoUsuario(String descricao) {
+    NivelPrioridade(String descricao) {
         this.descricao = descricao;
     }
 

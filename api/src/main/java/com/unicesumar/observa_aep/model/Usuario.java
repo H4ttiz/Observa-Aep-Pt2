@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "usuarios")
@@ -50,11 +51,9 @@ public class Usuario implements UserDetails {
 
     private boolean ativo;
 
-    // ===== Métodos obrigatórios do UserDetails =====
-
     @Override
     public String getUsername() {
-        return email; // ou cpf, o que for usar pra logar
+        return email;
     }
 
     @Override
@@ -84,6 +83,19 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return ativo; // já usa seu campo!
+        return ativo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Usuario)) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

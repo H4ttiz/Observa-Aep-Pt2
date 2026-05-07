@@ -1,15 +1,14 @@
 package com.unicesumar.observa_aep.enums;
 
-public enum TipoUsuario {
+public enum TipoLog {
 
-    CIDADAO("Cidadão"),
-    ATENDENTE("Servidor Público"),
-    GESTOR("Gestor"),
-    ADMIN("Administrador");
+    INSERT("Inserção"),
+    UPDATE("Atualização"),
+    DELETE("Exclusão");
 
     private final String descricao;
 
-    TipoUsuario(String descricao) {
+    TipoLog(String descricao) {
         this.descricao = descricao;
     }
 

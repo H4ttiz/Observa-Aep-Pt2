@@ -12,22 +12,19 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {
 
-    // ===== Response — entidade → DTO de retorno =====
     UsuarioResponseDTO toResponseDTO(Usuario entity);
     List<UsuarioResponseDTO> toResponseDTOList(List<Usuario> entities);
 
-    // ===== Request ADM — DTO de cadastro → entidade =====
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "criadoPor", ignore = true)
     @Mapping(target = "dataCriacao", ignore = true)
     @Mapping(target = "ativo", ignore = true)
     Usuario toEntity(UsuarioRequestDTO dto);
 
-    // ===== Request Cidadão — DTO de auto cadastro → entidade =====
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "criadoPor", ignore = true)
     @Mapping(target = "dataCriacao", ignore = true)
     @Mapping(target = "ativo", ignore = true)
-    @Mapping(target = "tipoUsuario", ignore = true) // definido no Service!
+    @Mapping(target = "tipoUsuario", ignore = true)
     Usuario toEntity(CidadaoRequestDTO dto);
 }
