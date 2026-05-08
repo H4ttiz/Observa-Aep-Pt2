@@ -27,6 +27,7 @@ public class TokenConfig {
         return JWT.create()
                 .withClaim("userId", usuario.getId())
                 .withSubject(usuario.getEmail())
+                .withClaim("tipoUsuario", usuario.getTipoUsuario().name())
                 .withExpiresAt(Instant.now().plusSeconds(expiration))
                 .withIssuedAt(Instant.now())
                 .sign(algorithm);
@@ -42,10 +43,11 @@ public class TokenConfig {
             return Optional.of(JWTUserData.builder()
                     .userId(decode.getClaim("userId").asLong())
                     .email(decode.getSubject())
+                    .tipoUsuario(decode.getClaim("tipoUsuario").asString())
                     .build());
 
-        }catch (BadCredentialsException ex){
-            throw new CredenciaisInvalidasException();
+        } catch (Exception ex) {
+            return Optional.empty();
         }
 
     }
