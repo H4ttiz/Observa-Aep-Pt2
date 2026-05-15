@@ -11,7 +11,7 @@ import com.unicesumar.observa_aep.exception.CpfJaCadastradoException;
 import com.unicesumar.observa_aep.exception.EmailJaCadastradoException;
 import com.unicesumar.observa_aep.mapper.UsuarioMapper;
 import com.unicesumar.observa_aep.model.Usuario;
-import com.unicesumar.observa_aep.repositiry.UsuarioRepository;
+import com.unicesumar.observa_aep.repository.UsuarioRepository;
 import com.unicesumar.observa_aep.util.CpfUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -40,6 +40,16 @@ public class AuthService {
         this.mapper = mapper;
     }
 
+    /**
+     * Autentica um usuário e gera o token de acesso.
+     *
+     * <p>Valida as credenciais informadas e, em caso de sucesso,
+     * retorna um JWT para ser utilizado nas requisições subsequentes.
+     *
+     * @param loginRequestDTO credenciais de acesso (email e senha)
+     * @return DTO contendo o token JWT gerado
+     * @throws CredenciaisInvalidasException se o email ou senha estiverem incorretos
+     */
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
         try {
             UsernamePasswordAuthenticationToken userAndPass =
@@ -59,6 +69,24 @@ public class AuthService {
         }
     }
 
+    /**
+     * Registra um novo usuário com perfil Cidadão.
+     *
+     * <p>Antes de salvar, valida se o email e CPF informados já estão cadastrados.
+     * A senha é armazenada de forma criptografada e o CPF é salvo sem máscara.
+     *
+     * <p>O usuário é criado com:
+     * <ul>
+     *   <li>Perfil {@code CIDADAO}</li>
+     *   <li>Status ativo</li>
+     *   <li>Data de criação preenchida automaticamente</li>
+     * </ul>
+     *
+     * @param cidadaoRequestDTO dados do novo usuário
+     * @return DTO com os dados do usuário cadastrado
+     * @throws EmailJaCadastradoException se o email informado já estiver em uso
+     * @throws CpfJaCadastradoException se o CPF informado já estiver cadastrado
+     */
     public UsuarioResponseDTO register(CidadaoRequestDTO cidadaoRequestDTO) {
 
         if (usuarioRepository.existsByEmail(cidadaoRequestDTO.email())) {

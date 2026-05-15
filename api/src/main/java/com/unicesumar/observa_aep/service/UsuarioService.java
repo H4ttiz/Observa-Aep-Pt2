@@ -1,8 +1,7 @@
 package com.unicesumar.observa_aep.service;
 
 import com.unicesumar.observa_aep.mapper.UsuarioMapper;
-import com.unicesumar.observa_aep.model.Usuario;
-import com.unicesumar.observa_aep.repositiry.UsuarioRepository;
+import com.unicesumar.observa_aep.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 @Service
