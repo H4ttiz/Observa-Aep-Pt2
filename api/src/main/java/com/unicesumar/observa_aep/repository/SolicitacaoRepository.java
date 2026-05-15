@@ -1,4 +1,4 @@
-package com.unicesumar.observa_aep.repositiry;
+package com.unicesumar.observa_aep.repository;
 
 import com.unicesumar.observa_aep.enums.NivelPrioridade;
 import com.unicesumar.observa_aep.enums.StatusSolicitacao;
