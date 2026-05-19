@@ -37,13 +37,25 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({CredenciaisInvalidasException.class, BadCredentialsException.class})
     public ResponseEntity<Map<String, Object>> handleCredenciaisInvalidas() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(buildError(HttpStatus.UNAUTHORIZED, "Email ou senha inválidos"));
+                .body(buildError(HttpStatus.UNAUTHORIZED, "Email ou senha invÃ¡lidos"));
     }
 
     @ExceptionHandler(ErroAoGerarTokenException.class)
     public ResponseEntity<Map<String, Object>> handleErroToken(ErroAoGerarTokenException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(buildError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
+    }
+
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ResponseEntity<Map<String, Object>> handleEntidadeNaoEncontrada(EntidadeNaoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(buildError(HttpStatus.NOT_FOUND, ex.getMessage()));
+    }
+
+    @ExceptionHandler(AcessoNegadoException.class)
+    public ResponseEntity<Map<String, Object>> handleAcessoNegado(AcessoNegadoException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(buildError(HttpStatus.FORBIDDEN, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
